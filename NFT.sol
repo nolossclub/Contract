@@ -1542,7 +1542,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
   }
 }
 
-contract XXX is ERC721Enumerable, Ownable {
+contract NOLOSSCLUB is ERC721Enumerable, Ownable {
   using SafeMath for uint256;
   using Address for address;
   using Strings for uint256;
@@ -1550,7 +1550,7 @@ contract XXX is ERC721Enumerable, Ownable {
   string private _baseURIExtended;
   uint256[] private arr;
 
-  constructor() ERC721("xx", "XXX") {}
+  constructor() ERC721("NOLOSSCLUB", "NLC") {}
 
   function burnLength() public view returns (uint256) {
     return arr.length;

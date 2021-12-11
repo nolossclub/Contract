@@ -1625,13 +1625,12 @@ contract XXX is ERC721Enumerable, Ownable {
 
     function mint(address _user) external onlyOwner {
 
-if(newmint == true){
-_safeMint(_user, mintc);
- newmint = false;
-}else{
-
+       if(newmint == true){
+        _safeMint(_user, mintc);
+        newmint = false;
+       }else{
         _safeMint(_user, totalSupply());
-}
+        }
 
     }
 

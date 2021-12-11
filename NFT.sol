@@ -1593,7 +1593,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 }
 
-contract NOLOSSCLUB is ERC721Enumerable, Ownable {
+contract XXX is ERC721Enumerable, Ownable {
     using SafeMath for uint256;
     using Address for address;
     using Strings for uint256;
@@ -1601,7 +1601,10 @@ contract NOLOSSCLUB is ERC721Enumerable, Ownable {
     string private _baseURIExtended;
     mapping(uint256 => string) _tokenURIs;
 
-    constructor() ERC721("NoLossClub", "NLC") {}
+    bool private newmint;
+    uint256 private mintc;
+
+    constructor() ERC721("xx", "XXX") {}
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseURIExtended;
@@ -1623,11 +1626,21 @@ contract NOLOSSCLUB is ERC721Enumerable, Ownable {
     }
 
     function mint(address _user) external onlyOwner {
+
+if(newmint == true){
+_safeMint(_user, mintc);
+ newmint = false;
+}else{
+
         _safeMint(_user, totalSupply());
+}
+
     }
 
     function burn(uint256 _id) external onlyOwner {
-        _burn(_id)
+        newmint = true;
+        mintc = _id;
+        _burn(_id);
     }
 
     function setBaseURI(string memory baseURI_) external onlyOwner {

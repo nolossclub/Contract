@@ -1603,7 +1603,7 @@ contract XXX is ERC721Enumerable, Ownable {
   
     constructor() ERC721("xx", "XXX") {}
 
-    function getLength() public view returns (uint256) {
+    function burnLength() public view returns (uint256) {
         return arr.length;
     }
 

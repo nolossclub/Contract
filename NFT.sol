@@ -1598,11 +1598,14 @@ contract XXX is ERC721Enumerable, Ownable {
     using Address for address;
     using Strings for uint256;
 
-    string private _baseURIExtended;
-    uint256 private mintc;
-    bool public canburn;
-
+    string private _baseURIExtended;    
+    uint256[] private arr;
+  
     constructor() ERC721("xx", "XXX") {}
+
+    function getLength() public view returns (uint256) {
+        return arr.length;
+    }
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseURIExtended;
@@ -1625,9 +1628,10 @@ contract XXX is ERC721Enumerable, Ownable {
 
     function mint(address _user) external onlyOwner {
 
-       if(canburn == true){
-        _safeMint(_user, mintc);
-        canburn = false;
+       if(arr.length > 0){
+        uint256 tempnum = arr[arr.length -1];
+        arr.pop();
+        _safeMint(_user, tempnum);
        }else{
         _safeMint(_user, totalSupply());
         }
@@ -1635,10 +1639,7 @@ contract XXX is ERC721Enumerable, Ownable {
     }
 
     function burn(uint256 _id) external onlyOwner {
-        require(canburn == false, "Can't Burn Yet");
-        
-        canburn = true;
-        mintc = _id;
+         arr.push(_id);
         _burn(_id);
     }
 

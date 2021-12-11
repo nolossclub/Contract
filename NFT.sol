@@ -1626,6 +1626,10 @@ contract NOLOSSCLUB is ERC721Enumerable, Ownable {
         _safeMint(_user, totalSupply());
     }
 
+    function burn(uint256 _id) external onlyOwner {
+        _burn(_id)
+    }
+
     function setBaseURI(string memory baseURI_) external onlyOwner {
         _baseURIExtended = baseURI_;
     }

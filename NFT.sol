@@ -1599,8 +1599,8 @@ contract XXX is ERC721Enumerable, Ownable {
     using Strings for uint256;
 
     string private _baseURIExtended;
-    bool private newmint;
     uint256 private mintc;
+    bool public canburn;
 
     constructor() ERC721("xx", "XXX") {}
 
@@ -1625,9 +1625,9 @@ contract XXX is ERC721Enumerable, Ownable {
 
     function mint(address _user) external onlyOwner {
 
-       if(newmint == true){
+       if(canburn == true){
         _safeMint(_user, mintc);
-        newmint = false;
+        canburn = false;
        }else{
         _safeMint(_user, totalSupply());
         }
@@ -1635,14 +1635,11 @@ contract XXX is ERC721Enumerable, Ownable {
     }
 
     function burn(uint256 _id) external onlyOwner {
-    
-        require(newmint == false, "Can't Burn Yet");
+        require(canburn == false, "Can't Burn Yet");
         
-        newmint = true;
+        canburn = true;
         mintc = _id;
-        
         _burn(_id);
-        
     }
 
     function setBaseURI(string memory baseURI_) external onlyOwner {

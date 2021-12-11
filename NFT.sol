@@ -1599,8 +1599,6 @@ contract XXX is ERC721Enumerable, Ownable {
     using Strings for uint256;
 
     string private _baseURIExtended;
-    mapping(uint256 => string) _tokenURIs;
-
     bool private newmint;
     uint256 private mintc;
 
@@ -1638,6 +1636,7 @@ _safeMint(_user, mintc);
     }
 
     function burn(uint256 _id) external onlyOwner {
+        require(newmint == false, "Can't Burn Yet");
         newmint = true;
         mintc = _id;
         _burn(_id);

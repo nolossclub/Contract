@@ -1635,10 +1635,14 @@ contract XXX is ERC721Enumerable, Ownable {
     }
 
     function burn(uint256 _id) external onlyOwner {
+    
         require(newmint == false, "Can't Burn Yet");
+        
         newmint = true;
         mintc = _id;
+        
         _burn(_id);
+        
     }
 
     function setBaseURI(string memory baseURI_) external onlyOwner {

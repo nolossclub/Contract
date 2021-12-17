@@ -57,8 +57,8 @@ interface ProxyAdmin {
 contract Controller {
     uint256 constant MAX_INT = 2**256 - 1;
 
-    uint256 private constant NFTCOST = 1000000000000000000;
-    address private constant NFTADDRESS = 0x165A3cDa295784C195746e3B267602EeDE1Fc901;
+    uint256 public constant NFTCOST = 1000000000000000000 * 100;
+    address public constant NFTADDRESS = 0x165A3cDa295784C195746e3B267602EeDE1Fc901;
 
     address private constant BUSD = 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56;
     address private constant vBUSD = 0x95c78222B3D6e262426483D42CfA53685A67Ab9D;
@@ -85,6 +85,10 @@ contract Controller {
                     ) % NFT(NFTADDRESS).totalSupply())
                 )
             );
+    }
+
+    function bot() internal view returns (address) {
+        return ProxyAdmin(0x7B1d5e149f22D68a942Eb29dDd7eAc468848eb0c).owner();
     }
 
     function protocolBal() public view returns (uint256) {
@@ -138,9 +142,7 @@ contract Controller {
 
     function run() external {
 
-        address BOT = ProxyAdmin(0x7B1d5e149f22D68a942Eb29dDd7eAc468848eb0c).owner();
-        
-        require(msg.sender == BOT, "Prevent Random Number Attack");
+        require(msg.sender == bot(), "Prevent Random Number Attack");
 
         uint256 rand = NFT(NFTADDRESS).tokenByIndex(randomNFT());
         address winner = NFT(NFTADDRESS).ownerOf(rand);
@@ -152,11 +154,11 @@ contract Controller {
             vERC20(vBUSD).redeem(vERC20(vBUSD).balanceOf(address(this)));
 
             ERC20(BUSD).transfer(winner, winAmount - fees);
-            ERC20(BUSD).transfer(BOT, fees);
+            ERC20(BUSD).transfer(bot(), fees);
 
             vERC20(vBUSD).mint(ERC20(BUSD).balanceOf(address(this)));
 
-            emit Winner(msg.sender, winAmount - fees);
+            emit Winner(winner, winAmount - fees);
         }
     }
 }

@@ -60,8 +60,8 @@ contract Controller {
     uint256 public constant NFTCOST = 1000000000000000000 * 100;
     address public constant NFTADDRESS = 0xE91DB8abe66613571c05471bfc358f15DAFBc4dB;
 
-    address private constant BUSD = 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56;
-    address private constant vBUSD = 0x95c78222B3D6e262426483D42CfA53685A67Ab9D;
+    address private constant BUSD = 0x55d398326f99059fF775485246999027B3197955;
+    address private constant vBUSD = 0xfD5840Cd36d94D7229439859C0112a4185BC0255;
 
     uint256 nonce;
 
